@@ -218,9 +218,6 @@ public:
 	// material slot index for the fog material
 	static const int c_FogMaterialIndex;
 
-	// the name of the texture parameter in the fog material
-	static const float c_SizePadding_ZOffset;
-
 	// offset radius for the tile reveal brush relative to the grid tile radius
 	static const float c_GridTileRadiusRevealBrushOffset;
 
