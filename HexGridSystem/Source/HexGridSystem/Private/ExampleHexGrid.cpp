@@ -21,6 +21,15 @@ AExampleHexGrid::AExampleHexGrid()
 }
 
 
+void AExampleHexGrid::CollectAssetsToPreload(TArray<FSoftObjectPath>& OutAssets) const
+{
+	FogOfWarProperties.CollectAssetsToPreload(OutAssets);
+
+
+	return;
+}
+
+
 void AExampleHexGrid::BeginPlay()
 {
 	Super::BeginPlay();

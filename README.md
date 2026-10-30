@@ -1,6 +1,8 @@
 # HexGrid
 A plugin for Unreal Engine that implements a hexagonal coordinate system and provides support for tile rendering, navigation, minimap UI, and Fog of War.
 
+![Grid Demo Preview](assets/grid-demo01.png)
+
 # Quick Links
 * [Hex Grid Types](HexGridSystem/Plugins/HexGridPlugin/Source/HexGridPlugin/Public/HexGridTypes.h)
 * [Hex Grid](HexGridSystem/Plugins/HexGridPlugin/Source/HexGridPlugin/Public/HexGrid.h)

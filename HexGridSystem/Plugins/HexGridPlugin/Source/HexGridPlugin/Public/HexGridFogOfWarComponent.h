@@ -96,16 +96,16 @@ public:
 	}
 
 
-	// updates visibility state for a group of tiles in the data, then rebuilds the visuals for the given player
+	// updates visibility state for a group of tiles in the data for the given player
 	void UpdateVisibilityAtCoordinatesForPerspectivePlayer(const int PerspectivePlayerIndex, FHexGridTileVisibilityGroupMap const& TileVisibilityGroups);
 
-	// updates visibility state for a group of tiles in the data, then rebuilds the visuals for the given player
+	// updates visibility state for a group of tiles in the data for the given player
 	void UpdateVisibilityAtCoordinatesForPerspectivePlayer(const int PerspectivePlayerIndex, FHexGridCoordinateList const& Coordinates, const EHexGridTileVisibility Visibility)
 	{
 		UpdateVisibilityAtCoordinatesForPerspectivePlayer(PerspectivePlayerIndex, FHexGridTileVisibilityGroupMap(Coordinates, Visibility));
 	}
 
-	// updates visibility state for a group of tiles in the data, then rebuilds the visuals for the given player
+	// updates visibility state for a group of tiles in the data for the given player
 	void UpdateVisibilityAtCoordinatesForPerspectivePlayer(const int PerspectivePlayerIndex, TMap<FHexGridCoordinate, EHexGridTileVisibility> const& TileVisibilityMap)
 	{
 		UpdateVisibilityAtCoordinatesForPerspectivePlayer(PerspectivePlayerIndex, FHexGridTileVisibilityGroupMap(TileVisibilityMap));

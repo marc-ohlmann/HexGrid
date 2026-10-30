@@ -12,11 +12,13 @@
 #include "CameraPawn.h"
 #include "HexGridNavigationComponent.h"
 #include "ExampleHexGrid.h"
+#include "ChainedAssetLoader.h"
 
 #include "DrawDebugHelpers.h"
 
 
 AHexGridGameModeBase::AHexGridGameModeBase()
+	: _GridClass_PreloadAssetHandles()
 {
 	PlayerControllerClass = AHexGridPlayerController::StaticClass();
 	DefaultPawnClass = ACameraPawn::StaticClass();
@@ -37,23 +39,32 @@ void AHexGridGameModeBase::BeginPlay()
 
 	L_WARN(HexgridTest, "");
 
+	FChainedAssetLoader::LoadAssetsRecursively(
+		HexGridClass,
+		FOnAllAssetsLoaded::CreateUObject(this, &AHexGridGameModeBase::HandleGridClassAssetsPreloaded)
+	);
+
+
+	return;
+}
+
+
+void AHexGridGameModeBase::HandleGridClassAssetsPreloaded(TArray<TSharedPtr<FStreamableHandle>> const& PreloadedAssets)
+{
+	_GridClass_PreloadAssetHandles = PreloadedAssets;
+
 	UWorld* World = GetWorld();
 	IF_NULL_RETURN_LERR(World, HexGridTest, "could not get world");
 
-	_HexGrid = UHexGridSubsystem::GetHexGrid(this);
-	if (UMCommon::IsUObjectPointerSafe(_HexGrid) == false)
-	{
-		L_WARN(HexGridTest, "no grid in world, spawning one now...");
+	UClass* GridClass = UMCommon::EnsureSoftClassPtrLoaded(HexGridClass);
+	IF_NULL_RETURN_LERR(GridClass, HexGridTest, "could not get grid class");
 
-		UClass* GridClass = HexGridClass.LoadSynchronous();
-		IF_NULL_RETURN_LERR(GridClass, HexGridTest, "could not get world");
+	FActorSpawnParameters ActorSpawnParams;
+	AExampleHexGrid* NewHexGrid = World->SpawnActor<AExampleHexGrid>(GridClass, FTransform(FVector::ZeroVector), ActorSpawnParams);
+	IF_NULL_RETURN_LERR(NewHexGrid, HexGridTest, "failed to spawn hex grid generator of class '{0}'", GridClass);
 
-		FActorSpawnParameters ActorSpawnParams;
-		AExampleHexGrid* NewHexGrid = World->SpawnActor<AExampleHexGrid>(GridClass, FTransform(FVector::ZeroVector), ActorSpawnParams);
-		IF_NULL_RETURN_LERR(NewHexGrid, HexGridTest, "failed to spawn hex grid generator of class '{0}'", GridClass);
-
-		_HexGrid = NewHexGrid;
-	}
+	_HexGrid = NewHexGrid;
+	IF_NULL_RETURN_LERR(_HexGrid, HexGridTest, "failed to create grid");
 	
 	if (_HexGrid->IsEmptyGrid())
 	{
@@ -72,6 +83,8 @@ void AHexGridGameModeBase::BeginPlay()
 	{
 		HandleGenerateGridFinished();
 	}
+
+	L_WARN(HexgridTest, "");
 
 
 	return;

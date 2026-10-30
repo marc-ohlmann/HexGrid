@@ -283,7 +283,7 @@ void AHexGridPlayerController::HandlePhysicalInput_Click()
 		TileVisibilityGroups.VisibilityGroupMap.Add(EHexGridTileVisibility::partial, PartialCoordinates);
 		TileVisibilityGroups.VisibilityGroupMap.Add(EHexGridTileVisibility::visible, VisibleCoordinates);
 
-		FogOfWar->UpdateVisibilityAtCoordinatesForPerspectivePlayer(0, TileVisibilityGroups);
+		FogOfWar->ApplyVisibilityAtCoordinatesForActivePerspectivePlayer(TileVisibilityGroups);
 	}
 
 #endif

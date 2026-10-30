@@ -87,7 +87,7 @@ struct HEXGRIDSYSTEM_API FExampleHexGridPathfindingProperties final
  *
  */
 UCLASS()
-class HEXGRIDSYSTEM_API AExampleHexGrid : public AHexGrid
+class HEXGRIDSYSTEM_API AExampleHexGrid : public AHexGrid, public IAssetProviderInterface
 {
 	GENERATED_BODY()
 
@@ -96,6 +96,10 @@ public:
 	AExampleHexGrid();
 
 	FExampleHexGridTileData GetExampleTileData(FHexGridCoordinate const& TileCoordinate) const;
+
+
+	virtual void CollectAssetsToPreload(TArray<FSoftObjectPath>& OutAssets) const override;
+
 
 protected:
 

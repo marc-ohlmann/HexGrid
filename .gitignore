@@ -1,0 +1,12 @@
+HexGridSystem/.vsconfig
+HexGridSystem/.vs/
+HexGridSystem/Binaries/
+HexGridSystem/DerivedDataCache/
+HexGridSystem/Intermediate/
+HexGridSystem/Plugins/*/Binaries/
+HexGridSystem/Plugins/*/DerivedDataCache/
+HexGridSystem/Plugins/*/Intermediate/
+HexGridSystem/Saved/
+HexGridSystem/UpgradeLog.htm
+*.sln
+*.slnx

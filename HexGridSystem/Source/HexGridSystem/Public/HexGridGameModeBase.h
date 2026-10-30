@@ -55,6 +55,7 @@ protected:
 
 private:
 
+	void HandleGridClassAssetsPreloaded(TArray<TSharedPtr<FStreamableHandle>> const& PreloadedAssets);
 	void HandleGenerateGridFinished();
 	void HandleFogOfWarInitialized();
 	void HandleCameraTransitionFinished();
@@ -64,5 +65,7 @@ private:
 
 	UPROPERTY(Transient)
 	AExampleHexGrid* _HexGrid;
+
+	TArray<TSharedPtr<FStreamableHandle>> _GridClass_PreloadAssetHandles;
 	
 };
